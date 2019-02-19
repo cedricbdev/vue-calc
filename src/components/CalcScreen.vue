@@ -1,10 +1,15 @@
 <template>
-  <div id="calc-screen">{{ value }}</div>
+  <div id="calc-screen">{{ renderScreen }}</div>
 </template>
 
 <script>
 export default {
-  props: ["value"]
+  props: ["value"],
+  computed: {
+    renderScreen() {
+      return this.value;
+    }
+  }
 };
 </script>
 
