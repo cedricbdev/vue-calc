@@ -7,6 +7,7 @@ export default {
   props: ["value"],
   computed: {
     renderScreen() {
+      // stuff to do before rendering screen (filtering operations keys, reseting display if needed etc.)
       return this.value;
     }
   }
