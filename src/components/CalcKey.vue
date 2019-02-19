@@ -1,11 +1,11 @@
 <template>
-  <div @click="emitKey" v-html="value"></div>
+  <div @click="emitKey" v-html="keyData.value"></div>
 </template>
 
 <script>
 export default {
   name: "CalcKey",
-  props: ["value"],
+  props: ["keyData"],
   data() {
     return {};
   },
@@ -13,10 +13,10 @@ export default {
     emitKey() {
       console.log(
         `"CalcKey" child component is emitting "Clicked" event with the key value: ${
-          this.value
+          this.keyData
         }`
       );
-      this.$emit("clicked", this.value);
+      this.$emit("clicked", this.keyData);
     }
   }
 };

@@ -7,25 +7,27 @@
         :key="calcKey.id"
         :id="`key-${calcKey.id}`"
         :class="`key key-${calcKey.className}`"
-        :value="calcKey.value"
+        :keyData="calcKey"
         @clicked="keyPressed"
       >
       </calc-key>
     </div>
+    <calc-buffer :buffer="buffer"></calc-buffer>
   </div>
 </template>
 
 <script>
 import CalcScreen from "./CalcScreen";
 import CalcKey from "./CalcKey";
+import CalcBuffer from "./CalcBuffer";
 
 const calcKeys = [
   { id: "modulo", className: "operation", value: "%" },
-  { id: "divide", className: "operation", value: "&#xf7;" },
-  { id: "multiply", className: "operation", value: "&#xd7;" },
-  { id: "minus", className: "operation", value: "&#x2212;" },
-  { id: "plus", className: "operation", value: "&#x2b;" },
-  { id: "equals", className: "operation", value: "&#x3d;" },
+  { id: "divide", className: "operation", value: "÷" },
+  { id: "multiply", className: "operation", value: "×" },
+  { id: "minus", className: "operation", value: "−" },
+  { id: "plus", className: "operation", value: "+" },
+  { id: "equals", className: "operation", value: "=" },
   { id: "ce", className: "operation", value: "CE" },
   { id: "dot", className: "number", value: "," },
   { id: "0", className: "number", value: "0" },
@@ -44,7 +46,8 @@ export default {
   name: "Calc",
   components: {
     CalcKey,
-    CalcScreen
+    CalcScreen,
+    CalcBuffer
   },
   data() {
     return {
@@ -55,24 +58,20 @@ export default {
   },
   computed: {
     screenText() {
-      // this.buffer.reduce((accumulator, currentValue) => {
-      //   return
-      // });
-      return this.buffer;
+      return this.buffer.reduce((accumulator, currentValue) => {
+        return (accumulator += currentValue);
+      }, "");
     }
   },
   methods: {
-    keyPressed(val) {
-      console.log(
-        `Then => "Calc" parent component gets this event and logs: ${val}`
-      );
-      switch (val) {
-        case "CE":
+    keyPressed(keyData) {
+      switch (keyData.id) {
+        case "ce":
           console.clear();
           this.buffer = [];
           break;
         default:
-          this.buffer.push(val);
+          this.buffer.push(keyData.value);
       }
     }
   }
